@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="card center">
+    <div class="card-content green-text text-darken-4">
+      <h1>Welcome</h1>
+      <p>Welcome to Adventure Memos 1.0.0</p>
+      <p>Post your adventure stories and choose if you want to share them with the world or keep them complete privately
+      </p>
+      <br>
+      {{#if user}}
+      {{else}}
+      <a href="/auth/google" class="btn teal lighten-1"><i class="fa fa-google left"></i> Login with Google</a>
+      {{/if}}
+    </div>
+  </div>
+</div>

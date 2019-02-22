@@ -9,9 +9,16 @@
   "author": "Georgi Priporski",
   "license": "MIT",
   "dependencies": {
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
+    "express-handlebars": "^3.0.1",
+    "express-session": "^1.15.6",
     "mongoose": "^5.4.14",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-plugin-react": "^7.12.4"
   }
 }
