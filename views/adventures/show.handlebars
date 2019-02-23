@@ -1,12 +1,46 @@
 <div class="row green-text text-darken-4">
   <div class="col s12 m8">
-    <h4 class="center">{{adventure.title}}</h4>
+    <h4 class="center">{{adventure.title}}
+      <small>{{{editIcon adventure.user.id user.id adventure.id false}}}</small>
+    </h4>
     <div class="card adventure">
       <div class="card-content">
         <span class="card-title">{{formatDate adventure.date 'MMMM Do YYYY'}}</span>
         {{{adventure.body}}}
       </div>
     </div>
+
+    {{#if adventure.allowComments}}
+    {{#each adventure.comments}}
+    <div class="card">
+      <div class="card-content">
+        <h5>{{commentBody}}</h5>
+        <div class="chip">
+          <img src="{{commentUser.image}}" alt="Google User Img">
+          {{commentUser.firstName}} {{commentUser.lastName}}
+        </div>
+        <br>
+        <small>Posted on: {{formatDate commentDate 'MMMM Do YYYY'}}</small>
+      </div>
+    </div>
+    {{/each}}
+    <div class="card green-text text-darken-4">
+      <div class="card-content">
+        <span class="card-title">Add Comment:</span>
+        {{#if user}}
+        <form method="post" action="/adventures/comment/{{adventure.id}}">
+          <div class="input-field">
+            <textarea name="commentBody" class="materialize-textarea"></textarea>
+            <label>Add Comment</label>
+          </div>
+          <input type="submit" value="Submit" class="btn">
+        </form>
+        {{else}}
+        <p>Please <a href="/auth/google">log</a> in to leave a comment</p>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
   </div>
   <div class="col s12 m4">
     <h4 class="center">Author</h4>

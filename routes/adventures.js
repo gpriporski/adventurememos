@@ -13,6 +13,9 @@ router.get('/', (req, res) => {
     status: 'public'
   })
     .populate('user')
+    .sort({
+      date: 'desc'
+    })
     .then(adventures => {
       res.render('adventures/index', {
         adventures: adventures
@@ -26,6 +29,7 @@ router.get('/show/:id', (req, res) => {
     _id: req.params.id
   })
     .populate('user')
+    .populate('comments.commentUser')
     .then(adventure => {
       res.render('adventures/show', {
         adventure: adventure
@@ -44,9 +48,13 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     _id: req.params.id
   })
     .then(adventure => {
-      res.render('adventures/edit', {
-        adventure: adventure
-      })
+      if (adventure.user != req.user.id) {
+        res.redirect('/adventures')
+      } else {
+        res.render('adventures/edit', {
+          adventure: adventure
+        })
+      }
     })
 })
 
@@ -108,6 +116,27 @@ router.delete('/:id', (req, res) => {
   })
     .then(() => {
       res.redirect('/dashboard')
+    })
+})
+
+// Add Comment
+router.post('/comment/:id', (req, res) => {
+  Adventure.findOne({
+    _id: req.params.id
+  })
+    .then(adventure => {
+      const newComment = {
+        commentBody: req.body.commentBody,
+        commentUser: req.user.id
+      }
+
+      // Add to comments arr
+      adventure.comments.unshift(newComment)
+
+      adventure.save()
+        .then(adventure => {
+          res.redirect(`/adventures/show/${adventure.id}`)
+        })
     })
 })
 

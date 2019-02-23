@@ -19,5 +19,16 @@ module.exports = {
   },
   select: (selected, options) => {
     return options.fn(this).replace(new RegExp(' value="' + selected + '"'), '$& selected="selected"').replace(new RegExp('>' + selected + '</option>'), ' selected="selected"$&')
+  },
+  editIcon: (adventureUser, loggedUser, adventureId, floating = true) => {
+    if (adventureUser === loggedUser) {
+      if (floating) {
+        return `<a href="/adventures/edit/${adventureId}" class="btn-floating halfway-fab green"><i class="fas fa-pencil-alt"></i></a>`
+      } else {
+        return `<a href="/adventures/edit/${adventureId}" class="green-text"><i class="fas fa-pencil-alt"></i></a>`
+      }
+    } else {
+      return ''
+    }
   }
 }
