@@ -1,1 +1,24 @@
-<h1>Show Adventure</h1>
+<div class="row green-text text-darken-4">
+  <div class="col s12 m8">
+    <h4 class="center">{{adventure.title}}</h4>
+    <div class="card adventure">
+      <div class="card-content">
+        <span class="card-title">{{formatDate adventure.date 'MMMM Do YYYY'}}</span>
+        {{{adventure.body}}}
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m4">
+    <h4 class="center">Author</h4>
+    <div class="card center-align">
+      <div class="card-content">
+        <span class="card-title">{{adventure.user.firstName}} {{adventure.user.lastName}}</span>
+        <img src="{{adventure.user.image}}" class="circle responsive-img">
+      </div>
+      <div class="card-action">
+        <a href="/adventures/user/{{adventure.user.id}}">More from <span
+            class="green-text">{{adventure.user.firstName}}</span></a>
+      </div>
+    </div>
+  </div>
+</div>

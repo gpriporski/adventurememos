@@ -1,1 +1,28 @@
-<h1>Adventures</h1>
+<h1 class="center green-text text-darken-4">Adventures</h1>
+<div class="row">
+  {{#each adventures}}
+  <div class="col s12 m4">
+    <div class="card">
+      <div class="card-image">
+        <a href="/adventures/edit/{{id}}" class="btn-floating halfway-fab green">
+          <i class="fas fa-pencil-alt"></i>
+        </a>
+      </div>
+      <div class="card-content center-align">
+        <h5 class="green-text text-darken-4">{{title}}</h5>
+        <p class="adventure-text green-text text-darken-4">{{truncate (stripTags body) 100}}</p>
+        <br>
+        <div class="chip">
+          <img src="{{user.image}}" alt="Google User Img">
+          {{user.firstName}} {{user.lastName}}
+        </div>
+      </div>
+      <div class="card-action center-align">
+        <a href="/adventures/show/{{id}}" class="btn green"><i class="fas fa-directions green"></i> Read More</a>
+      </div>
+    </div>
+  </div>
+  {{else}}
+  <p>Can't be so boring. Add an adventure!</p>
+  {{/each}}
+</div>

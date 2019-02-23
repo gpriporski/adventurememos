@@ -1,2 +1,33 @@
-<h1>Welcome {{user.firstName}}</h1>
-<h4>Your Stories</h4>
+<h1 class="green-text text-darken-4 center">Welcome <span class="green-text">{{user.firstName}}</span></h1>
+<h5 class="green-text text-darken-4">All you've done so far:</h5>
+{{#if adventures}}
+<table class="responsive-table bordered centered green-text text-darken-4">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each adventures}}
+    <tr>
+      <td><a href="/adventure/show/{{id}}">{{title}}</a></td>
+      <td>{{formatDate date 'MMMM Do YYYY'}}</td>
+      <td><span class="dash-status">{{status}}</span></td>
+      <td>
+        <a href="/adventures/edit/{{id}}" class="btn left-align"><i class="fas fa-pencil-alt"></i> Edit</a>
+
+        <form action="/adventures/{{id}}?_method=DELETE" method="post" id="delete-form">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn">Delete <i class="fas fa-trash-alt red-text"></i></button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{else}}
+<p>You have been very boring. Create a story soon...</p>
+{{/if}}
