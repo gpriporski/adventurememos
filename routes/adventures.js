@@ -31,8 +31,49 @@ router.get('/show/:id', (req, res) => {
     .populate('user')
     .populate('comments.commentUser')
     .then(adventure => {
-      res.render('adventures/show', {
-        adventure: adventure
+      if (adventure.status == 'public') {
+        res.render('adventures/show', {
+          adventure: adventure
+        })
+      } else {
+        if (req.user) {
+          if (req.user.id == adventure.user._id) {
+            res.render('adventures/show', {
+              adventure: adventure
+            })
+          } else {
+            res.redirect('adventures')
+          }
+        } else {
+          res.redirect('adventures')
+        }
+      }
+    })
+})
+
+// Show single Users' adventures
+router.get('/user/:userId', (req, res) => {
+  Adventure.find({
+    user: req.params.userId,
+    status: 'public'
+  })
+    .populate('user')
+    .then(adventures => {
+      res.render('adventures/index', {
+        adventures: adventures
+      })
+    })
+})
+
+// Users My Adventures
+router.get('/my', ensureAuthenticated, (req, res) => {
+  Adventure.find({
+    user: req.user.id
+  })
+    .populate('user')
+    .then(adventures => {
+      res.render('adventures/index', {
+        adventures: adventures
       })
     })
 })

@@ -14,10 +14,10 @@
     {{#each adventure.comments}}
     <div class="card">
       <div class="card-content">
-        <h5>{{commentBody}}</h5>
+        <textarea>{{commentBody}}</textarea>>
         <div class="chip">
           <img src="{{commentUser.image}}" alt="Google User Img">
-          {{commentUser.firstName}} {{commentUser.lastName}}
+          <a href="/adventures/user/{{commentUser.id}}">{{commentUser.firstName}} {{commentUser.lastName}}</a>
         </div>
         <br>
         <small>Posted on: {{formatDate commentDate 'MMMM Do YYYY'}}</small>
