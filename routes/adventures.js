@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   })
     .populate('user')
     .sort({
-      date: 'desc'
+      date: 'asc'
     })
     .then(adventures => {
       res.render('adventures/index', {
